@@ -1,0 +1,29 @@
+.error{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+}
+
+.error>img{
+  height: 3rem;
+  width: 3rem;
+  margin-top: 2rem;
+}
+.error-inner{
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 50%;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+}
+.error-inner>span{
+  font-size: 20px;
+  font-weight: 400;
+  font-family: 'Nerko One', cursive;
+  color: rgb(117, 35, 35);
+}
