@@ -10,8 +10,8 @@ export default class ItemList extends Component {
   }
 
   componentDidMount() {
-    let {getItem} = this.props;
-    getItem()
+    let {getData} = this.props;
+      getData()
       .then(itemList => this.setState({itemList}))
       .catch(err => {
         return

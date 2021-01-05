@@ -1,59 +1,70 @@
 import React, {Component} from 'react';
-import SwapiService from '../Swapi-Service/SwapiService'
 import './item-details.css'
 import Spinner from '../spinner/spinner';
 
+const Record = ({item, field, label}) => {
+  return (
+    <li className='item-details-item'>
+      <span>{label}</span>
+      <span>{item[field]}</span>
+    </li>
+  )
+}
+export {Record};
 
 export default class ItemDetails extends Component {
-  swapiService = new SwapiService();
 
   state = {
-    item: {},
+    item: null,
     error: false,
     loading: true,
+    image: null
   }
 
   componentDidMount() {
-    this.updatePerson();
+    this.updateItem();
   }
-  onLoading = item => this.setState({item, loading: false});
   onError = err => this.setState({error: true})
-  updatePerson = () => {
-    const itemId = this.props.itemId;
-
+  updateItem = () => {
+    const {itemId, getData, getImageUrl} = this.props;
     if (!itemId) {
       return
     }
-    this
-      .swapiService
-      .getPerson(itemId)
-      .then(this.onLoading)
-      .catch(this.onError)
+    getData(itemId).then(item => {
+
+      return this.setState({
+        item,
+        loading: false,
+        image: getImageUrl(item.id)
+      })
+    }).catch(this.onError)
   }
   componentDidUpdate(prevprops) {
     if (this.props.itemId != prevprops.itemId) {
-      this.setState({loading:true})
-      this.updatePerson();
+      this.setState({loading: true})
+      this.updateItem();
+
     }
   }
 
-  
   render() {
-  
+
     const returnDetails = () => {
-      let {name, birthYear, eyeColor, gender, id} = this.state.item;
+      let {item: {
+          name
+        }, image} = this.state;
       return (
         <React.Fragment>
           <div className='wrap'>
-            <img
-              className='img'
-              src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}/>
+            <img className='img' src={image}/>
             <div className='item-list-group'>
               <h1>{name}</h1>
               <ul className='item-details-list'>
-                <li className='item-details-item'>Gender {gender}</li>
-                <li className='item-details-item'>Eyecolor {eyeColor}</li>
-                <li className='item-details-item'>Birthyear {birthYear}</li>
+                {React
+                  .Children
+                  .map(this.props.children, (child) => {
+                    return React.cloneElement(child, {item})
+                  })}
               </ul>
             </div>
           </div>
