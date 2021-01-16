@@ -2,7 +2,7 @@ export default class SwapiService {
   __apiBase = 'https://swapi.dev/api';
   __imageBase = `https://starwars-visualguide.com/assets/img`
 
-  getResource= async (url)=> {
+  getResource = async (url) => {
     let response = await fetch(`${this.__apiBase}${url}`);
     if (!response.ok) {
       throw new Error(`Couldn't fetch ${url}, received ${response.status}`)
@@ -16,41 +16,42 @@ export default class SwapiService {
       .results
       .map(this._transformPerson)
   }
- getPerson= async (id)=>{
+
+  getPerson = async (id) => {
     const person = await this.getResource(`/people/${id}/`);
     return this._transformPerson(person);
   }
 
-  getAllPlanet= async ()=>{
+  getAllPlanet = async () => {
     const res = await this.getResource('/planets/')
     return res
       .results
       .map(this._transformPlanet)
-  
+
   }
-   getPlanet=async (id)=>{
+  getPlanet = async (id) => {
     const planet = await this.getResource(`/planets/${id}/`);
     return this._transformPlanet(planet);
   }
 
-   getAllStarships = async()=>{
+  getAllStarships = async () => {
     const res = await this.getResource('/starships/')
     return res
       .results
       .map(this._transformStarship)
   }
-  getStarship=async (id)=>{
+  getStarship = async (id) => {
     const starship = await this.getResource(`/starships/${id}/`);
     return this._transformStarship(starship);
   }
 
-  getPersonUrl=(id)=>{
+  getPersonUrl = (id) => {
     return `${this.__imageBase}/characters/${id}.jpg`
   }
-  getStarshipUrl=(id)=>{
+  getStarshipUrl = (id) => {
     return `${this.__imageBase}/starships/${id}.jpg`
   }
-  getPlanetsUrl=(id)=>{
+  getPlanetsUrl = (id) => {
     return `${this.__imageBase}/planets/${id}.jpg`
   }
   extractId(item) {
@@ -61,7 +62,7 @@ export default class SwapiService {
     return id;
   }
 
-  _transformPlanet=(planet)=>{
+  _transformPlanet = (planet) => {
     return {
       id: this.extractId(planet),
       name: planet.name,
@@ -71,7 +72,7 @@ export default class SwapiService {
     }
   }
 
-  _transformPerson = (person)=>{
+  _transformPerson = (person) => {
     return {
       id: this.extractId(person),
       name: person.name,
@@ -80,18 +81,18 @@ export default class SwapiService {
       eyeColor: person.eye_color
     }
   }
-  _transformStarship=(starship)=>{
+  _transformStarship = (starship) => {
     return {
       id: this.extractId(starship),
       name: starship.name,
       model: starship.model,
       manufacturer: starship.manufacturer,
       costInCredits: starship.cost_in_credits,
-      lenght:starship.lenght,
-      crew:starship.crew,
-      passenger:starship.passenger,
-      cargoCapasity:starship.cargo_capacity
+      lenght: starship.lenght,
+      crew: starship.crew,
+      passenger: starship.passenger,
+      cargoCapasity: starship.cargo_capacity
     }
   }
-}
 
+}
