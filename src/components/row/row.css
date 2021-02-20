@@ -1,16 +1,18 @@
 .row{
   display: flex;
   flex:0 1 100%;
-  margin-top:2rem;
+ 
   margin-bottom: 2rem;
   flex-wrap: wrap;
   justify-content: space-between;
 }
 
 .left{
+  margin-top:2rem;
   flex: 0 0 45%;
 }
 
 .right{
+  margin-top:2rem;
   flex: 0 0 45%;
 }

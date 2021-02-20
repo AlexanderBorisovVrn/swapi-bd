@@ -1,5 +1,5 @@
 import React from 'react';
-import ErrorButton from '../error-button/error-button'
+
 
 import './row.css'
 const Row = ({left, right}) => {

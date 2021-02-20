@@ -32,3 +32,15 @@
   background-color: darkgray;
   cursor: pointer;
 }
+
+.btn{
+  border-radius: 10px;
+  outline: none;
+  margin-left:auto ;
+  margin-right: 0;
+  background-color: inherit;
+  font-size: 1.25rem;
+  font-weight: 500;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: wheat;
+}

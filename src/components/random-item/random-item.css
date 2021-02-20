@@ -1,14 +1,14 @@
-.random-planet {
+.random-item {
   display: flex;
   flex: 0 0 100%;
   margin-top: 2rem;
-  height: 12rem;
+  min-height: 12rem;
   background-color: rgba(255, 255, 255, 0.151);
   border-radius: .5rem;
 }
 
-.planet-img {
-  height: 10rem;
+.item-img {
+  min-height: 10rem;
   width: 10rem;
   border-radius: .5rem;
   margin: 1rem 1rem;
@@ -16,7 +16,7 @@
 
 .item-list{
   width: 15rem;
-  height: 12rem;
+  min-height: 12rem;
   margin: 0;
   padding: 0;
   margin-left: 1rem;

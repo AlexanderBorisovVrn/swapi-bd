@@ -1,25 +1,42 @@
 import React, {Component} from 'react';
 import './app.css';
 import Header from './components/header/header';
-import ItemDetails from './components/hoc-helpers/hoc-with-details'
-import { PersonList,StarshipList,PlanetList} from './components/sw-components/lists';
-
+import RandomPlanet from './components/sw-pages/random-page'
+import {SwapiService, DummySwapiService} from './components/Swapi-Service';
+import {SwapiServiceProvider} from './components/swapi-context/swapi-context';
+import ErrorBoundry from './components/error-boundry/error-boundry';
+import {PeoplePage, PlanetPage, StarshipPage} from './components/sw-pages';
 
 export default class App extends Component {
   state = {
-    itemId: 5,
+    currentService: new SwapiService()
   }
   onItemSelected = (id) => {
-    return this.setState({itemId: id})}
+    return this.setState({itemId: id})
+  }
+
+  changeService = () => {
+    this.setState(({currentService}) => {
+      const Service = currentService instanceof SwapiService
+        ? DummySwapiService
+        : SwapiService;
+      return {currentService: new Service()}
+    })
+  }
 
   render() {
-       
     return (
-      <div className='app'>
-        <Header/>
-        <ItemDetails itemId={this.state.itemId}/>
-        <PersonList onItemSelected={this.onItemSelected}/>
-       </div>
+      <ErrorBoundry>
+        <SwapiServiceProvider value={this.state.currentService}>
+          <div className='app'>
+            <Header changeService={this.changeService}/>
+            <RandomPlanet updateInterval={1000}/>
+            <PeoplePage/>
+            <PlanetPage/>
+            <StarshipPage/>
+          </div>
+        </SwapiServiceProvider>
+      </ErrorBoundry>
     )
   }
 }
